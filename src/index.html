@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BB is watching you</title>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fingerprintjs2/1.5.1/fingerprint2.min.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <style type="text/css">
+        .hidden {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+<p id="load">Loading...</p>
+
+<div id="container" class="hidden">
+    <p>Input below any message. We will save it for you. Even if you are incognito ¯\_(ツ)_/¯</p>
+    <input type="text" name="message">
+    <button>Submit</button>
+</div>
+
+<script type="text/javascript">
+    var url = 'http://localhost:3859/api';
+
+    new Fingerprint2().get(function(result, components){
+        var id = result;
+
+        $.get(url, {id: id}).then(function(body) {
+            $('#load').addClass('hidden');
+            $('#container').removeClass('hidden');
+            var message = (body || {}).message;
+            $('#container input').val(message);
+
+            $('#container button').on('click', function () {
+                var message = $('#container input').val();
+                $.ajax(url, {
+                    data: JSON.stringify({id: id, message: message}),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    type: 'POST'
+                }).then(function(body){
+                    console.log(body);
+                });
+            });            
+        })
+    });
+</script>
+</body>
+</html>
