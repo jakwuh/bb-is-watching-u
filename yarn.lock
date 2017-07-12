@@ -123,6 +123,10 @@ finalhandler@~1.0.3:
     statuses "~1.3.1"
     unpipe "~1.0.0"
 
+fingerprintjs@^0.5.3:
+  version "0.5.3"
+  resolved "http://storage.mds.yandex.net/get-npm/38095/fingerprintjs-0.5.3.tgz#0026422fae1ab1003691e136c143e19b7527b255"
+
 forwarded@~0.1.0:
   version "0.1.0"
   resolved "http://storage.mds.yandex.net/get-npm/45674/forwarded-0.1.0.tgz#19ef9874c4ae1c297bcf078fde63a09b66a84363"

@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>BB is watching you</title>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/fingerprintjs2/1.5.1/fingerprint2.min.js"></script>
+    <script type="text/javascript" src="fingerprint.js"></script>
     <script
         src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -23,30 +23,30 @@
 </div>
 
 <script type="text/javascript">
-    var url = 'https://akwuh.me/bb/api';
+    var url = 'https://akwuh.me./bb';
 
-    new Fingerprint2().get(function(result, components){
-        var id = result;
+    var fingerprint = new Fingerprint({screen_resolution: true, canvas: true}).get();
 
-        $.get(url, {id: id}).then(function(body) {
-            $('#load').addClass('hidden');
-            $('#container').removeClass('hidden');
-            var message = (body || {}).message;
-            $('#container input').val(message);
+    var id = fingerprint;
 
-            $('#container button').on('click', function () {
-                var message = $('#container input').val();
-                $.ajax(url, {
-                    data: JSON.stringify({id: id, message: message}),
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    type: 'POST'
-                }).then(function(body){
-                    console.log(body);
-                });
-            });            
-        })
-    });
+    $.get(url, {id: id}).then(function(body) {
+        $('#load').addClass('hidden');
+        $('#container').removeClass('hidden');
+        var message = (body || {}).message;
+        $('#container input').val(message);
+
+        $('#container button').on('click', function () {
+            var message = $('#container input').val();
+            $.ajax(url, {
+                data: JSON.stringify({id: id, message: message}),
+                dataType: 'json',
+                contentType: 'application/json',
+                type: 'POST'
+            }).then(function(body){
+                console.log(body);
+            });
+        });            
+    })
 </script>
 </body>
 </html>
